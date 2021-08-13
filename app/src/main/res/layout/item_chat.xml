@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <LinearLayout
+        android:id="@+id/lo_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/chat_layout_padding">
+
+        <TextView
+            android:id="@+id/tv_contents"
+            android:textSize="@dimen/font_size_small"
+            android:layout_width="wrap_content"
+            android:maxWidth="@dimen/chat_contents_max_width"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/chat_contents_padding"
+            android:textColor="@color/dark_gray"
+            android:background="@drawable/bg_chat"
+            android:layout_marginEnd="@dimen/chat_contents_margin_end"
+            tools:text="hello? How are you?" />
+
+        <TextView
+            android:id="@+id/tv_time_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            tools:text="오후 1:30"/>
+    </LinearLayout>
+</layout>

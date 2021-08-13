@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_receive_background">#32385F</color>
+    <color name="ic_receive_background_status">#22284F</color>
+</resources>

@@ -1,30 +1,36 @@
 package com.example.myfcm.activity;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ScrollView;
 
+import com.example.myfcm.adapter.ChatAdapter;
 import com.example.myfcm.firebase.MyFirebaseMessagingService;
 import com.example.myfcm.R;
 import com.example.myfcm.databinding.ActivityMainBinding;
+import com.example.myfcm.model.Item;
 import com.example.myfcm.util.ClipboardUtil;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
+
 public class MainActivity extends BaseActivity {
     private static final String TAG = "tag";
     public ActivityMainBinding binding;
+    private ArrayList<Item> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        list = new ArrayList<>();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         binding.btCheck.setOnClickListener(V -> {
@@ -60,20 +66,26 @@ public class MainActivity extends BaseActivity {
 
     // 수신된 메시지 가공하여 출력
     private void processIntent(Intent intent) {
-        String from = intent.getStringExtra(MyFirebaseMessagingService.FROM);
+        Item item = intent.getParcelableExtra(MyFirebaseMessagingService.ITEM);
 
-        if (from == null) {
+        if (item.getFrom() == null) {
             Log.d(TAG, "발신자가 null 입니다...");
             return;
         }
 
-        // 보낸 data 는 CONTENTS 키를 사용해 확인
-        String contents = intent.getStringExtra(MyFirebaseMessagingService.CONTENTS);
-        Log.d(TAG, "수신된 메시지 : " + contents);
+        // 보낸 시간
+        // String sendTime = intent.getStringExtra(MyFirebaseMessagingService.TIME);
+        // 메시지 내용
+        // String contents = intent.getStringExtra(MyFirebaseMessagingService.CONTENTS);
+        Log.d(TAG, "시간 : " + item.getTime() + ", 내용 : " + item.getContents());
 
-        // 노티 출력
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
-        binding.tvContents.append(contents + "\n");
+        // 인텐트로 전달받은 아이템 리스트에 저장
+        list.add(item);
+        // 리사이클러뷰에 리스트 전달
+        ChatAdapter adapter = new ChatAdapter(list);
+        binding.recyclerview.setAdapter(adapter);
 
         binding.svLog.post(new Runnable() {
             @Override

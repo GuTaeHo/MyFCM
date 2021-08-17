@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout
+    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.MainActivity"
-        android:orientation="vertical" >
+        tools:context=".activity.MainActivity" >
 
         <ScrollView
             android:id="@+id/sv_log"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
-            <TextView
-                android:id="@+id/tv_contents"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bt_check">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:textSize="24sp"
-                tools:text="hello"/>
+                android:paddingEnd="18dp" />
         </ScrollView>
 
         <Button
             android:id="@+id/bt_check"
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="기기 ID 클립보드에 저장하기"
@@ -34,5 +32,5 @@
             android:layout_marginEnd="6dp"
             android:textSize="18sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

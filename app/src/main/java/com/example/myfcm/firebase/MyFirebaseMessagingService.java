@@ -7,11 +7,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.example.myfcm.activity.MainActivity;
+import com.example.myfcm.model.Item;
 import com.example.myfcm.util.SoundPlayerUtil;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -21,7 +23,9 @@ import java.util.Map;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String TAG = "FMS";
     public static final String FROM = "from";
+    public static final String TIME = "time";
     public static final String CONTENTS = "contents";
+    public static final String ITEM = "item";
 
     private NotificationManager manager;
     private Notification.Builder builder;
@@ -49,21 +53,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String from = remoteMessage.getFrom();
         Map<String, String> data = remoteMessage.getData();
         String contents = data.get(CONTENTS);
-
-        Log.d(TAG, "title : " + remoteMessage.getNotification().getTitle() + ", body : " + remoteMessage.getNotification().getBody());
-        Log.d(TAG, "from : " + from + ", contents : " + contents);
+        String time = data.get(TIME);
         
         // 노티 출력
-        showNotification(contents);
+        // showNotification(contents);
+
+        Item item = new Item();
+        // 메시지 발신자
+        item.setFrom(from);
+        // 메시지 시간 (수신 받은 형태 그대로)
+        item.setTime(time);
+        // 메시지 내용
+        item.setContents(contents);
         
         // 푸시 메시지를 받았을 때 내용을 액티비티로 보내는 메서드
-        sendToActivity(getApplicationContext(), from, contents);
+        sendToActivity(getApplicationContext(), item);
+
+        // Log.d(TAG, "title : " + remoteMessage.getNotification().getTitle() + ", body : " + remoteMessage.getNotification().getBody());
+        // Log.d(TAG, "from : " + from + ", contents : " + contents);
     }
 
-    private void sendToActivity(Context context, String from, String contents) {
+    private void sendToActivity(Context context, Item item) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(FROM, from);
-        intent.putExtra(CONTENTS, contents);
+        intent.putExtra(ITEM, item);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_SINGLE_TOP |

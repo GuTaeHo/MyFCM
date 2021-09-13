@@ -13,6 +13,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.myfcm.activity.MainActivity;
+import com.example.myfcm.application.MyPreferencesManager;
 import com.example.myfcm.model.Item;
 import com.example.myfcm.util.SoundPlayerUtil;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -24,11 +25,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String TAG = "FMS";
     public static final String FROM = "from";
     public static final String TIME = "time";
+    public static final String SENDER = "sender";
     public static final String CONTENTS = "contents";
     public static final String ITEM = "item";
 
     private NotificationManager manager;
     private Notification.Builder builder;
+
+    private MyPreferencesManager preferencesManager;
 
     private static final String CHANNEL_ID = "channel_id";
     private static final String CHANNEL_NAME = "일반 알림";
@@ -42,6 +46,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
         Log.d(TAG, "onNewToken() 호출됨 : " + token);
+        preferencesManager = MyPreferencesManager.getInstance(this);
+        // 쉐어드 프리퍼런스에 토큰값 저장
+        preferencesManager.setFcmId(token);
     }
 
     @Override
@@ -50,8 +57,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         // getFrom() 메서드를 통해 발신자 코드를 확인할 수 있음
-        String from = remoteMessage.getFrom();
+        // String from = remoteMessage.getFrom();
         Map<String, String> data = remoteMessage.getData();
+        String from = data.get(SENDER);
         String contents = data.get(CONTENTS);
         String time = data.get(TIME);
         

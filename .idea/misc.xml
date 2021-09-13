@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/drawable/allow_button.xml" value="0.36923076923076925" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/drawable/allow_button_click.xml" value="0.36923076923076925" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/drawable/allow_button_normal.xml" value="0.36923076923076925" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/drawable/bg_chat.xml" value="0.3175925925925926" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3472222222222222" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/font-v26/ft_lobster_regular.xml" value="0.3814814814814815" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/font/ft_lobster_regular.xml" value="0.3814814814814815" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/layout/activity_login.xml" value="0.337037037037037" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/layout/activity_main.xml" value="0.287962962962963" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/layout/activity_my_notification.xml" value="0.35885416666666664" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/layout/activity_splash.xml" value="0.337037037037037" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/layout/common_toolbar.xml" value="0.35885416666666664" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/layout/dialog_notice.xml" value="0.35885416666666664" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/layout/item_chat.xml" value="0.27314814814814814" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/mipmap-anydpi-v26/ic_receive.xml" value="0.3175925925925926" />
+        <entry key="..\:/AndroidExample/MyFCM/app/src/main/res/xml/network_security_config.xml" value="0.19635416666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

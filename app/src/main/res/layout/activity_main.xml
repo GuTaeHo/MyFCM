@@ -24,12 +24,12 @@
 
         <Button
             android:id="@+id/bt_check"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="기기 ID 클립보드에 저장하기"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
+            android:text="기기 ID 클립보드에 저장하기"
             android:textSize="18sp" />
 
     </RelativeLayout>

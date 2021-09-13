@@ -44,6 +44,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = items.get(position);
 
+        holder.binding.tvSender.setText(item.getFrom());
         holder.binding.tvContents.setText(item.getContents());
         holder.binding.tvTimeSend.setText(TimeUtil.getCustomTime(item.getTime()));
     }

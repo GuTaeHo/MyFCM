@@ -6,27 +6,43 @@
         android:id="@+id/lo_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="@dimen/chat_layout_padding">
 
         <TextView
-            android:id="@+id/tv_contents"
-            android:textSize="@dimen/font_size_small"
+            android:id="@+id/tv_sender"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:maxWidth="@dimen/chat_contents_max_width"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/chat_contents_padding"
-            android:textColor="@color/dark_gray"
-            android:background="@drawable/bg_chat"
+            android:textSize="@dimen/font_size_smaller"
+            android:layout_marginBottom="@dimen/chat_contents_padding"
             android:layout_marginEnd="@dimen/chat_contents_margin_end"
-            tools:text="hello? How are you?" />
+            tools:text="MuAng59" />
 
-        <TextView
-            android:id="@+id/tv_time_send"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:textSize="@dimen/font_size_smallest"
-            tools:text="오후 1:30"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_contents"
+                android:textSize="@dimen/font_size_small"
+                android:layout_width="wrap_content"
+                android:maxWidth="@dimen/chat_contents_max_width"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/chat_contents_padding"
+                android:textColor="@color/dark_gray"
+                android:background="@drawable/bg_chat"
+                android:layout_marginEnd="@dimen/chat_contents_margin_end"
+                tools:text="hello? How are you?" />
+
+            <TextView
+                android:id="@+id/tv_time_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textSize="@dimen/font_size_smallest"
+                tools:text="오후 1:30"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>

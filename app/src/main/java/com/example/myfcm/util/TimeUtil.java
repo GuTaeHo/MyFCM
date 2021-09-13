@@ -37,8 +37,20 @@ public class TimeUtil {
     }
 
     public static String getCustomTime(String time) {
-        String[] timeSplit = time.split("/");
+        String dateTime;
+        String timeHour = time.substring(11,13);
+        int intTimeHour = Integer.parseInt(timeHour);
+        String timeMinute = time.substring(14,16);
+        String timeSecond = time.substring(17,19);
+        
+        if (intTimeHour >= 12) {
+            intTimeHour = intTimeHour - 12;
+            timeHour = String.valueOf(intTimeHour);
+            dateTime = "오후";
+        } else {
+            dateTime = "오전";
+        }
 
-        return timeSplit[DAYTIME] + " " + timeSplit[HOUR] + ":" + timeSplit[MINUTE];
+        return dateTime + " " + timeHour + ":" + timeMinute;
     }
 }

@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity {
         // String sendTime = intent.getStringExtra(MyFirebaseMessagingService.TIME);
         // 메시지 내용
         // String contents = intent.getStringExtra(MyFirebaseMessagingService.CONTENTS);
-        Log.d(TAG, "시간 : " + item.getTime() + ", 내용 : " + item.getContents());
+        Log.d(TAG, "보낸이 : " + item.getFrom() + ", 시간 : " + item.getTime() + ", 내용 : " + item.getContents());
 
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 

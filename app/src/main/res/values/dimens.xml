@@ -7,8 +7,15 @@
     <dimen name="font_size_large">24sp</dimen>
     <dimen name="font_size_larger">30sp</dimen>
     <dimen name="font_size_largest">36sp</dimen>
+
+    <!-- ChatActivity -->
     <dimen name="chat_layout_padding">12dp</dimen>
     <dimen name="chat_contents_padding">6dp</dimen>
     <dimen name="chat_contents_margin_end">6dp</dimen>
     <dimen name="chat_contents_max_width">200dp</dimen>
+
+    <!-- PeopleActivity -->
+    <dimen name="people_layout_padding">6dp</dimen>
+
+
 </resources>

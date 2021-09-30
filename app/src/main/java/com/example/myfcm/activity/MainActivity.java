@@ -1,98 +1,117 @@
 package com.example.myfcm.activity;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ScrollView;
+import android.view.View;
 
-import com.example.myfcm.adapter.ChatAdapter;
-import com.example.myfcm.firebase.MyFirebaseMessagingService;
+import com.example.myfcm.application.MyApplication;
+import com.example.myfcm.databinding.CommonToolbarBinding;
 import com.example.myfcm.R;
 import com.example.myfcm.databinding.ActivityMainBinding;
-import com.example.myfcm.model.Item;
-import com.example.myfcm.util.ClipboardUtil;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.installations.FirebaseInstallations;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.example.myfcm.dialog.NoticeDialog;
+import com.example.myfcm.fragment.ChatFragment;
+import com.example.myfcm.fragment.PeopleFragment;
+import com.example.myfcm.fragment.SettingFragment;
+import com.example.myfcm.model.Account;
+import com.example.myfcm.model.People;
+import com.example.myfcm.network.Response;
+import com.example.myfcm.network.response.ResponsePeople;
+import com.example.myfcm.network.resultInterface.MemberListListener;
 
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
-    private static final String TAG = "tag";
-    public ActivityMainBinding binding;
-    private ArrayList<Item> list;
+    private ActivityMainBinding binding;
+    private CommonToolbarBinding commonToolbarBinding;
+    public Fragment fragment;
+    private ArrayList<People> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        list = new ArrayList<>();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        commonToolbarBinding = DataBindingUtil.bind(binding.commonToolbar.toolbar);
 
-        binding.btCheck.setOnClickListener(V -> {
-            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(
-                    MainActivity.this, new OnSuccessListener<String>() {
-                        @Override
-                        public void onSuccess(String token) {
-                            Log.d(TAG,"등록 Token : " + token);
-                            // 클립보드에 토큰 값 저장
-                            ClipboardUtil.saveClipboard(MainActivity.this, token);
-                            showToast("ID 복사 완료!");
-                        }
-                    });
-
-            // Firebase 인스턴스 확인
-            Task<String> instanceID = FirebaseInstallations.getInstance().getId();
-            Log.d(TAG,"확인된 인스턴스 ID : " + instanceID);
-            // Toast.makeText(MainActivity.this, "" + instanceID, Toast.LENGTH_SHORT).show();
-        });
+        initLayout();
     }
 
-    @Override
-    // FCM 서비스로 부터 인텐트를 받았을 때(클라우드 메시지 서버로 부터 메시지를 받았을 때) 처리
-    protected void onNewIntent(Intent intent) {
-        Log.d(TAG,"onNewIntent() 호출됨.");
-
-        if (intent != null) {
-            processIntent(intent);
-        }
-
-        super.onNewIntent(intent);
+    private void initLayout() {
+        initCommonActionBarLayout(commonToolbarBinding, "사람들", false);
+        initList();
     }
 
-    // 수신된 메시지 가공하여 출력
-    private void processIntent(Intent intent) {
-        Item item = intent.getParcelableExtra(MyFirebaseMessagingService.ITEM);
-
-        if (item.getFrom() == null) {
-            Log.d(TAG, "발신자가 null 입니다...");
-            return;
-        }
-
-        // 보낸 시간
-        // String sendTime = intent.getStringExtra(MyFirebaseMessagingService.TIME);
-        // 메시지 내용
-        // String contents = intent.getStringExtra(MyFirebaseMessagingService.CONTENTS);
-        Log.d(TAG, "보낸이 : " + item.getFrom() + ", 시간 : " + item.getTime() + ", 내용 : " + item.getContents());
-
-        binding.recyclerview.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
-        // 인텐트로 전달받은 아이템 리스트에 저장
-        list.add(item);
-        // 리사이클러뷰에 리스트 전달
-        ChatAdapter adapter = new ChatAdapter(list);
-        binding.recyclerview.setAdapter(adapter);
-
-        binding.svLog.post(new Runnable() {
+    // 사용자 목록 초기화
+    private void initList() {
+        networkPresenter.memberList(MyApplication.getApiToken(), new MemberListListener() {
             @Override
-            public void run() {
-                // 스크롤 최하단으로 이동
-                binding.svLog.fullScroll(ScrollView.FOCUS_DOWN);
+            public void success(ArrayList<People> responsePeople) {
+                list = responsePeople;
+                initNavigation();
+            }
+
+            @Override
+            public void fail(String message) {
+                new NoticeDialog(MainActivity.this)
+                        .setMsg(message)
+                        .show();
             }
         });
+    }
+
+    private void initNavigation() {
+        binding.navView.setOnItemSelectedListener(item -> {
+            actionBarTitleChange(item.getItemId());
+            bottomNavigate(item.getItemId());
+            return true;
+        });
+        // 최초 프래그먼트 설정
+        binding.navView.setSelectedItemId(R.id.nv_list);
+    }
+
+    private void bottomNavigate(int id) {
+        String tag = String.valueOf(id);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        fragment = fragmentManager.findFragmentByTag(tag);
+        // 미 생성된 프래그먼트 객체 생성
+        if (fragment == null) {
+            if (id == R.id.nv_list) {
+                // 사용자 목록을 전달하고 프래그먼트 생성
+                fragment = PeopleFragment.newInstance(list);
+            } else if (id == R.id.nv_chat) {
+                fragment = ChatFragment.newInstance(list);
+            } else {
+                fragment = new SettingFragment();
+            }
+            // 트랜잭션에 생성된 프래그먼트 추가
+            fragmentTransaction.add(R.id.fragment, fragment, tag);
+        } else {
+            // 이미 생성된 프래그먼트는 바로 출력
+            fragmentTransaction.show(fragment);
+        }
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.commitNow();
+    }
+
+    private void actionBarTitleChange(int id) {
+        if (id == R.id.nv_list) {
+            initCommonActionBarLayout(commonToolbarBinding, "사람들", false);
+        } else if (id == R.id.nv_chat) {
+            initCommonActionBarLayout(commonToolbarBinding, "대화", false);
+        } else {
+            initCommonActionBarLayout(commonToolbarBinding, "설정", false);
+        }
     }
 }

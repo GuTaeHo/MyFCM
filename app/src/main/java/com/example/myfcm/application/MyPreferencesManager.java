@@ -14,12 +14,12 @@ public class MyPreferencesManager {
     private static final int PRIVATE_MODE = 0;
 
     // 로그인 정보
-    private static final String FCM_ID = "fcm_id";
+    private static final String FCM_TOKEN = "fcm_token";
+    private static final String API_TOKEN = "api_token";
+    private static final String NICK_NAME = "nick_name";
     private static final String ID = "user_id";
     private static final String PW = "user_pw";
-    private static final String PHONE = "user_phone";
     private static final String IS_AUTO_LOGIN = "autoLogin";
-    private static final String IS_TERMS_AGREEMENT = "isTermsAgreement";
 
     @SuppressLint("CommitPrefEdits")
     private MyPreferencesManager(Context context) {
@@ -47,7 +47,6 @@ public class MyPreferencesManager {
     public boolean isAutoLogin() {
         return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getBoolean(IS_AUTO_LOGIN, false);
     }
-
     public void setAutoLogin(boolean b) {
         if (b) {
             editor.putBoolean(IS_AUTO_LOGIN, true);
@@ -59,14 +58,24 @@ public class MyPreferencesManager {
         editor.apply();
     }
 
-    public void setFcmId(String id) {
-        editor.putString(FCM_ID, id);
+    public void setFcmToken(String id) {
+        editor.putString(FCM_TOKEN, id);
         editor.apply();
     }
 
-    public String getFcmId() {
-        return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getString(FCM_ID, "");
+    public String getFcmToken() {
+        return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getString(FCM_TOKEN, "");
     }
+
+    public void setApiToken(String token) {
+        editor.putString(API_TOKEN, token);
+        editor.apply();
+    }
+
+    public String getApiToken() {
+        return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getString(API_TOKEN, "");
+    }
+
 
     public void setId(String id) {
         editor.putString(ID, id);
@@ -86,23 +95,12 @@ public class MyPreferencesManager {
         return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getString(PW, "");
     }
 
-    public void setPhone(String phone) {
-        editor.putString(PHONE, phone);
+    public void setNickName(String nickName) {
+        editor.putString(NICK_NAME, nickName);
         editor.apply();
     }
 
-    public String getPhone() {
-        return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getString(PHONE, "");
-    }
-
-    // 약관 동의시 editor에 true 값 저장
-    public void setTermsAgreement(boolean b) {
-        editor.putBoolean(IS_TERMS_AGREEMENT, b);
-        editor.apply();
-    }
-
-    // 약관 동의 확인 기능
-    public boolean isTermsAgreement() {
-        return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getBoolean(IS_TERMS_AGREEMENT, false);
+    public String getNickName() {
+        return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getString(NICK_NAME, "");
     }
 }

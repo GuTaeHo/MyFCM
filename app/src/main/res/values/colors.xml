@@ -8,8 +8,12 @@
 
     <color name="primary">#00cc66</color>
 
+    <color name="selector_bottom_nav_color">@color/dark_gray</color>
+
     <color name="button_normal">#99e699</color>
     <color name="button_click">#6fdc6f</color>
+
+    <color name="login_enter_signup">#8090C0</color>
 
     <color name="background_chat">#C2C8EF</color>
     <color name="purple_200">#FFBB86FC</color>

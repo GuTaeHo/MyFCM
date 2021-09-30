@@ -1,19 +1,18 @@
 package com.example.myfcm.activity;
 
-import android.Manifest;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
 import com.example.myfcm.R;
+import com.example.myfcm.application.MyApplication;
 import com.example.myfcm.dialog.NoticeDialog;
 import com.example.myfcm.network.Response;
 import com.example.myfcm.network.request.RequestLogin;
+import com.example.myfcm.network.request.RequestUpdateToken;
 import com.example.myfcm.network.response.ResponseLogin;
 import com.example.myfcm.network.resultInterface.LoginListener;
+import com.example.myfcm.network.resultInterface.UpdateTokenListener;
 import com.example.myfcm.util.ActivityUtil;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.gun0912.tedpermission.PermissionListener;
@@ -30,7 +29,12 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
         // permissionCheck();
-        getFcmToken();
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable()  {
+            public void run() {
+                getFcmToken();
+            }
+        }, 1000);
     }
 
     private void permissionCheck() {
@@ -61,6 +65,7 @@ public class SplashActivity extends BaseActivity {
                 .check();
     }
 
+    // FCM 토큰 확인
     private void getFcmToken() {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
@@ -68,20 +73,17 @@ public class SplashActivity extends BaseActivity {
                         Log.d(TAG,"Fetching FCM registration token failed " + task.getException());
                         return;
                     }
-
-                    // Get new FCM registration token
-                    String token = task.getResult();
-
-                    processLogin(token);
+                    MyApplication.setFcmToken(task.getResult());
+                    // 로그인 처리
+                    processLogin(task.getResult());
                 });
     }
 
-    private void processLogin(String token) {
+    private void processLogin(String fcmToken) {
         if ("".equals(preferencesManager.getId())) {
             ActivityUtil.startNewActivity(this, LoginActivity.class);
         } else {
             RequestLogin request = new RequestLogin();
-            request.setFcmtoken(token);
             request.setId(preferencesManager.getId());
             request.setPassword(preferencesManager.getPw());
 
@@ -90,6 +92,14 @@ public class SplashActivity extends BaseActivity {
                 @Override
                 public void success(Response<ResponseLogin> responseLogin) {
                     dismissProgressDialog();
+
+                    // 전역 변수에 토큰 값 저장
+                    MyApplication.setApiToken(responseLogin.getResultData().getApitoken());
+
+                    // 앱 고유의 FCM 토큰과 서버의 FCM 토큰이 일치하지 않으면 토큰 갱신
+                    if (!fcmToken.equals(responseLogin.getResultData().getFcmtoken())) {
+                        updateFcmToken(responseLogin.getResultData().getApitoken(), fcmToken);
+                    }
                     ActivityUtil.startNewActivity(SplashActivity.this, MainActivity.class);
                 }
 
@@ -102,5 +112,24 @@ public class SplashActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    private void updateFcmToken(String apiToken, String fcmToken) {
+        RequestUpdateToken request = new RequestUpdateToken();
+        request.setFcmtoken(fcmToken);
+        networkPresenter
+                .updateToken(apiToken, request, new UpdateTokenListener() {
+                    @Override
+                    // FCM Token 이 서버에 업데이트 되면 호출
+                    public void success(String token) {
+                        preferencesManager.setFcmToken(token);
+                    }
+
+                    @Override
+                    // FCM Token 이 동일하거나 API Token 이 다르면 호출
+                    public void fail(String message) {
+                        Log.d("updateFcmTokenFail", message);
+                    }
+                });
     }
 }

@@ -9,9 +9,6 @@ public class RequestLogin {
     @SerializedName("password")
     private String password;
 
-    @SerializedName("fcmtoken")
-    private String fcmtoken;
-
     public String getId() {
         return id;
     }
@@ -26,13 +23,5 @@ public class RequestLogin {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getFcmtoken() {
-        return fcmtoken;
-    }
-
-    public void setFcmtoken(String fcmtoken) {
-        this.fcmtoken = fcmtoken;
     }
 }

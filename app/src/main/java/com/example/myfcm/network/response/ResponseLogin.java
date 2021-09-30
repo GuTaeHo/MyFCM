@@ -10,6 +10,9 @@ public class ResponseLogin {
     @SerializedName("apitoken")
     private String apitoken;
 
+    @SerializedName("fcmtoken")
+    private String fcmtoken;
+
     public Account getAccount() {
         if (account == null) {
             account = new Account();
@@ -19,5 +22,13 @@ public class ResponseLogin {
 
     public String getApitoken() {
         return apitoken;
+    }
+
+    public String getFcmtoken() {
+        return fcmtoken;
+    }
+
+    public void setFcmtoken(String fcmtoken) {
+        this.fcmtoken = fcmtoken;
     }
 }

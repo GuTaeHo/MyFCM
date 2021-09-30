@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.example.myfcm.model.Account;
+import com.example.myfcm.model.People;
+
 /**
  * 플래그 정리
  * - FLAG_ACTIVITY_NEW_TASK : 새로운 태스크를 생성하여 내부에 액티비티 추가
@@ -23,7 +26,7 @@ public class ActivityUtil {
     }
 
     // 단일 액티비티 실행, 부가데이터 사용
-    public static void startSingleActivityExtras(Context context, Class<?> c, String key, int value) {
+    public static void startSingleActivityExtras(Context context, Class<?> c, String key, People value) {
         Intent intent = new Intent(context, c);
         intent.putExtra(key, value);
         intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP | FLAG_ACTIVITY_SINGLE_TOP);

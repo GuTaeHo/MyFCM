@@ -13,8 +13,11 @@ import com.example.myfcm.R;
 import com.example.myfcm.databinding.DialogNoticeBinding;
 
 public class NoticeDialog extends AlertDialog {
+    private DialogNoticeBinding binding;
     private Context context;
     private CharSequence message;
+    private String positiveString = "확인";
+    private String negativeString = "취소";
     private boolean isShowNegativeButton = true;
     private boolean isBackPressButton = true;
 
@@ -45,10 +48,20 @@ public class NoticeDialog extends AlertDialog {
         return this;
     }
 
+    public NoticeDialog setPositiveMsg(String message) {
+        this.positiveString = message;
+        return this;
+    }
+
+    public NoticeDialog setNegativeMsg(String message) {
+        this.negativeString = message;
+        return this;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DialogNoticeBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context),
                 R.layout.dialog_notice, null, false);
         setContentView(binding.getRoot());
 
@@ -56,6 +69,8 @@ public class NoticeDialog extends AlertDialog {
         setCanceledOnTouchOutside(false);
 
         binding.tvMessage.setText(message);
+        binding.tvPositive.setText(positiveString);
+        binding.tvNegative.setText(negativeString);
 
         binding.loPositive.setOnClickListener(new View.OnClickListener() {
             @Override

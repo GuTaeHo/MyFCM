@@ -3,13 +3,18 @@ package com.example.myfcm.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myfcm.R;
 import com.example.myfcm.application.MyPreferencesManager;
 import com.example.myfcm.databinding.CommonToolbarBinding;
 import com.example.myfcm.network.NetworkPresenter;
@@ -64,5 +69,13 @@ public class BaseActivity extends AppCompatActivity {
 
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

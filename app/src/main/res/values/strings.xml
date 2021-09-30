@@ -1,6 +1,6 @@
 <resources>
     <!-- app name -->
-    <string name="app_name">수신</string>
+    <string name="app_name">jetpack!</string>
 
     <!-- splash title -->
     <string name="splash_name">JetPack!</string>
@@ -9,4 +9,40 @@
     <string name="ted_permission_go_to_setting_button_text">설정</string>
     <string name="ted_permission_denied_message">권한이 승인되지 않아 서비스를 실행할 수 없습니다.\n권한설정은 [설정] > [권한]에서 변경하실 수 있습니다.</string>
     <string name="permission_not_agree">권한이 허용되지 않아 서비스를 실행할 수 없습니다.</string>
+
+    <!-- bottom navigation -->
+    <string name="nv_people">사람들</string>
+    <string name="nv_chat">대화</string>
+    <string name="nv_settings">설정</string>
+
+    <!-- settings fragment -->
+    <string name="settings_setting">기타</string>
+    <string name="settings_version">버전</string>
+    <string name="settings_account">계정</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- etc -->
+    <string name="etc_api_token">API Token</string>
+    <string name="etc_fcm_token">FCM Token</string>
+    <string name="etc_clicked_token">터치 시 토큰 값이 표시됩니다\n(길게 누르면 클립보드에 저장됩니다)</string>
+
+    <!-- login -->
+    <string name="login_id_hint">아이디를 입력해주세요</string>
+    <string name="login_pw_hint">비밀번호를 입력해주세요</string>
+    <string name="login_auto_login">자동 로그인</string>
+    <string name="login_signup">회원 가입</string>
+
+    <!-- signup -->
+    <string name="signup_return">이 전</string>
+    <string name="signup_signup">가 입</string>
+    <string name="signup_id">ex) android@example.com</string>
+    <string name="signup_nickname">5 ~ 20자 사이로 입력해주세요</string>
+    <string name="signup_pw">숫자, 문자, 특수문자 포함</string>
+    <string name="signup_pw_check">다시 한번 입력해주세요</string>
+    <string name="signup_login_title">아이디</string>
+    <string name="signup_nickname_title">닉네임</string>
+    <string name="signup_pw_title">비밀번호 (8 ~ 20자)</string>
+    <string name="signup_pw_check_title">비밀번호 확인</string>
+    <string name="logout_button">로 그 아 웃</string>
 </resources>

@@ -1,7 +1,12 @@
 package com.example.myfcm.network;
 
 import com.example.myfcm.network.request.RequestLogin;
+import com.example.myfcm.network.request.RequestSignup;
+import com.example.myfcm.network.request.RequestUpdateToken;
 import com.example.myfcm.network.response.ResponseLogin;
+import com.example.myfcm.network.response.ResponsePeople;
+import com.example.myfcm.network.response.ResponseSignup;
+import com.example.myfcm.network.response.ResponseUpdateToken;
 
 import java.io.IOException;
 
@@ -13,6 +18,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public class RetrofitClient {
@@ -52,7 +59,16 @@ public class RetrofitClient {
     }
 
     public interface RetrofitInterface {
+        @POST("project/walkietalkie/api/updatetoken/")
+        Call<Response<ResponseUpdateToken>> updateToken(@Header("Authorization") String header, @Body RequestUpdateToken token);
+
         @POST("project/walkietalkie/api/login/")
         Call<Response<ResponseLogin>> login(@Body RequestLogin requestLogin);
+
+        @POST("project/walkietalkie/api/signup/")
+        Call<Response<ResponseSignup>> signup(@Body RequestSignup requestSignup);
+
+        @GET("project/walkietalkie/api/member/")
+        Call<Response<ResponsePeople>> memberList(@Header("Authorization") String header);
     }
 }

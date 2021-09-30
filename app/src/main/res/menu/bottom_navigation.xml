@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nv_list"
+        android:icon="@drawable/ic_baseline_people_24"
+        android:title="@string/nv_people"/>
+
+    <item
+        android:id="@+id/nv_chat"
+        android:icon="@drawable/ic_baseline_chat_24"
+        android:title="@string/nv_chat"/>
+
+    <item
+        android:id="@+id/nv_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/nv_settings"/>
+</menu>

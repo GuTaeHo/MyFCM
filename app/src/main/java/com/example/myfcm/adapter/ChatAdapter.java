@@ -1,7 +1,6 @@
 package com.example.myfcm.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfcm.R;
-import com.example.myfcm.activity.MainActivity;
-import com.example.myfcm.databinding.ItemChatBinding;
-import com.example.myfcm.firebase.MyFirebaseMessagingService;
+import com.example.myfcm.databinding.ItemReceiveChatBinding;
+import com.example.myfcm.databinding.ItemSendChatBinding;
 import com.example.myfcm.model.Item;
 import com.example.myfcm.util.TimeUtil;
 
@@ -33,7 +31,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // inflate(삽입될 레이아웃, 부모 레이아웃)
-        View view = inflater.inflate(R.layout.item_chat, parent, false);
+        View view = inflater.inflate(R.layout.item_receive_chat, parent, false);
 
         // 뷰 홀더 생성
         return new ViewHolder(view);
@@ -44,9 +42,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = items.get(position);
 
-        holder.binding.tvSender.setText(item.getFrom());
-        holder.binding.tvContents.setText(item.getContents());
-        holder.binding.tvTimeSend.setText(TimeUtil.getCustomTime(item.getTime()));
+        holder.receiveBinding.tvSender.setText(item.getFrom());
+        holder.receiveBinding.tvContents.setText(item.getContents());
+        holder.receiveBinding.tvTimeSend.setText(TimeUtil.getCustomTime(item.getTime()));
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 
     @Override
@@ -55,11 +58,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final ItemChatBinding binding;
+        private final ItemReceiveChatBinding receiveBinding;
+        private final ItemSendChatBinding sendBinding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = DataBindingUtil.bind(itemView);
+            receiveBinding = DataBindingUtil.bind(itemView);
         }
     }
 }

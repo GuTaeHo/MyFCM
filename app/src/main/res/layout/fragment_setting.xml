@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".fragment.PeopleFragment">
+        <LinearLayout
+            android:id="@+id/lo_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="18dp"
+            android:foreground="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/ic_baseline_account_circle_24"
+                android:layout_marginStart="6dp"
+                android:padding="@dimen/chat_contents_padding" />
+
+            <TextView
+                android:textSize="@dimen/font_size_small"
+                android:layout_width="wrap_content"
+                android:maxWidth="@dimen/chat_contents_max_width"
+                android:layout_height="match_parent"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="@color/dark_gray"
+                android:gravity="center"
+                android:text="@string/settings_account" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:layout_gravity="center"
+                android:layout_marginEnd="6dp"/>
+        </LinearLayout>
+        <LinearLayout
+        android:id="@+id/lo_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="18dp"
+        android:foreground="?attr/selectableItemBackground">
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="@drawable/ic_baseline_info_24"
+            android:layout_marginStart="6dp"
+            android:padding="@dimen/chat_contents_padding" />
+
+        <TextView
+            android:textSize="@dimen/font_size_small"
+            android:layout_width="wrap_content"
+            android:maxWidth="@dimen/chat_contents_max_width"
+            android:layout_height="match_parent"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/dark_gray"
+            android:gravity="center"
+            android:text="@string/settings_version" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:layout_gravity="center"
+            android:layout_marginEnd="6dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lo_etc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="18dp"
+            android:foreground="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/ic_baseline_notes_24"
+                android:layout_marginStart="6dp"
+                android:padding="@dimen/chat_contents_padding" />
+
+            <TextView
+                android:textSize="@dimen/font_size_small"
+                android:layout_width="wrap_content"
+                android:maxWidth="@dimen/chat_contents_max_width"
+                android:layout_height="match_parent"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="@color/dark_gray"
+                android:gravity="center"
+                android:text="@string/settings_setting" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:layout_gravity="center"
+                android:layout_marginEnd="6dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.EtcActivity">
+        <include
+            android:id="@+id/common_toolbar"
+            layout="@layout/common_toolbar" />
+
+        <LinearLayout
+            android:id="@+id/lo_api_token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/common_toolbar"
+            android:padding="18dp">
+
+            <TextView
+                android:id="@+id/tv_api_title"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:padding="6dp"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:text="@string/etc_api_token"/>
+
+            <TextView
+                android:id="@+id/tv_api_token"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="6dp"
+                android:textColor="@color/dark_gray"
+                android:text="@string/etc_clicked_token"
+                tools:text="eyJhbGciOiJzaGEyNTYiLCJ0eXAiOiJKV1QifS57InN1YiI6ImZjbXRva2VuIiwiYXVkIjoibXVhbmc1OUBleGFtcGxlLmNvbSIsImxhdCI6MTYzMTAwNTE2Nn0uOTE2YTBmYTBhMjhiYmRjMTEwNmUwNmQ5NTYzOTk3MWE0OWZjNGNkYzE4NzA4YTI5ZjQwNzcwY2VlMjA1YmQ1ZQ=="/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lo_fcm_token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/lo_api_token"
+            android:padding="18dp">
+
+            <TextView
+                android:id="@+id/tv_fcm_title"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:padding="6dp"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:text="@string/etc_fcm_token"/>
+
+            <TextView
+                android:id="@+id/tv_fcm_token"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="6dp"
+                android:textColor="@color/dark_gray"
+                android:text="@string/etc_clicked_token"
+                tools:text="fRn7iAWhQtutgqRgsWmtZO:APA91bGoY4PDQewmSqzmpI5rZ_ldq7DWY5qTcMu3c6j9xLxF_334Ys7WMGFBaTF-EHsMMDdNyVY3gVtUfKUTtkyxHQg-kMr_GIkRB0aIyFg2apacKmGibPbMhO3MK1jyoMbD6WL4d4AL"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
